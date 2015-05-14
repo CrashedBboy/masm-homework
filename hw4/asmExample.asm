@@ -3,16 +3,16 @@ TITLE Example of ASM	(asmExample.ASM)
 INCLUDE Irvine32.inc
 
 CountMatches PROTO,
-	arrayA:PTR BYTE,
-	arrayB:PTR BYTE,
+	arrayA:PTR SBYTE,
+	arrayB:PTR SBYTE,
 	arrayLength:DWORD
 ExitProcess proto,dwExitCode:dword
 
 main          EQU start@0
 
 .data
-	array1 BYTE 12, 34, 1, 4, 33, 42, 24, 55
-	array2 BYTE 31, 34, 42, 4, 24, 1, 51, 3
+	array1 SBYTE 12, 34, 1, 4, 33, 42, 24, 55
+	array2 SBYTE 31, 34, 42, 4, 24, 1, 51, 3
 .code
 main PROC
 	INVOKE CountMatches, ADDR array1, ADDR array2, LENGTHOF array1
@@ -22,8 +22,8 @@ main PROC
 main ENDP
 
 CountMatches PROC USES edx esi edi ecx,
-					arrayA:PTR BYTE,
-					arrayB:PTR BYTE,
+					arrayA:PTR SBYTE,
+					arrayB:PTR SBYTE,
 					arrayLength:DWORD
 	mov eax, 0
 	mov esi, arrayA

@@ -32,7 +32,10 @@ CountMatches PROC USES edx esi edi ecx,
 	L1:
 		mov dl, [esi]
 		push ecx
-		mov ecx, sameNum
+		movzx ecx, sameNum
+		mov ebx, 0
+		cmp ebx, ecx
+		jz SKIP
 		L2:
 			mov ebx, OFFSET sameList
 			cmp [ebx], dl
@@ -44,6 +47,7 @@ CountMatches PROC USES edx esi edi ecx,
 			CONTINUE:
 				inc ebx
 		LOOP L2
+		SKIP:
 		mov ecx, arrayLength
 		mov edi, arrayB 
 		L3:
@@ -52,7 +56,9 @@ CountMatches PROC USES edx esi edi ecx,
 			jmp KEEP
 			EQUAL:
 				mov dh, sameNum
-				mov sameList+dh, dl
+				mov ebx, OFFSET sameList
+				ADD bl, dh
+				mov [ebx], dl
 				inc dh
 				mov sameNum, dh
 				pop ecx
